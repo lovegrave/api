@@ -1,0 +1,48 @@
+server:
+  port: 8082
+spring:
+  cache:
+    ehcache:
+      config: classpath:cache/ehcache.xml
+    type: ehcache
+  redis:
+    host: 172.16.0.30
+    port: 6379
+    # password:
+    jedis:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+      timeout: 0
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://172.16.0.20/xymsh2.0?characterEncoding=utf-8&&useSSL=false
+    username: odev
+    password: ws2812bc
+    driver-class-name: com.mysql.jdbc.Driver
+# 熔断器
+feign:
+  hystrix:
+    enabled: true
+# 蜂鸟配置信息
+tdp:
+  appid: a61ce242-49f6-406d-b145-9af49f915745
+  secretKey: cc2c8f1b-e189-45c0-9bba-19da00fb5d46
+
+# 延迟任务配置
+timer:
+  job:
+    #订单完成延迟时间,如果为0,则订单配送完成,订单就立即完成，单位：毫秒/3小时
+    over: 10800000
+    #派送延迟时间,如果为0,则不做延迟呼单任务,接单即呼单，单位：毫秒/1分钟
+    flow: 60000
+    # 超时接单,退款，如果等于0,则不做延迟任务，单位：毫秒/3000s
+    refund: 3000000
+    # 订单超时监控，单位：毫秒/30分钟
+    monitor: 1800000
+delivery:
+  # 配送重试次数,是指重试次数,如果异常后不重试,则为0
+  times: 0
